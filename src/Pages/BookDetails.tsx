@@ -5,7 +5,7 @@ function BookDetails() {
     <div className="container pt-4 pt-md-5">
       <div className="row">
         <div className="col-7">
-          <h2 className="text-success">{props.book.author}</h2>
+          {/* <h2 className="text-success">{props.book.author}</h2> */}
           <span>
             <span
               className="badge text-bg-dark pt-2"

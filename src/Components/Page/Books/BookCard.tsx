@@ -30,25 +30,25 @@ function BookCard(props: Props) {
       <div
         className="card shadow p-3 mb-6 bg-white rounded"
         // className="card shadow-lg p-3 mb-5 bg-white rounded"
-        style={{ height: "420px" }}
+        style={{ height: "480px" }}
       >
         <div className="card-body pt-0 h-75">
-          <div className="row col-10 offset-1 p-4">
+          <div className="row col-10 offset-1 p-0">
             <Link
               className="nav-link"
               to={`/bookDetails/${props.book.id}`}
               style={{ textDecoration: "none" }}
             >
               <img
-                src="https://via.placeholder.com/150"
+                src="https://bookstoreromanceday.org/wp-content/uploads/2020/08/book-cover-placeholder.png"
                 style={{ borderRadius: "5%" }}
                 alt=""
-                className="w-100 mt-5 image-box"
+                className="w-100 image-box"
               />
             </Link>
           </div>
 
-          <div className="text-center">
+          <div className="text-center pt-3">
             <Link
               className="nav-link"
               to={`/bookDetails/${props.book.id}`}

@@ -1,16 +1,19 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { bookReducer } from "./bookSlice";
-import { bookApi } from "../../APIs";
+import { bookApi, shoppingCartApi } from "../../APIs";
 
 const store = configureStore({
   reducer: {
     bookStore: bookReducer,
-    //register api
+    //invalidate,register api
     [bookApi.reducerPath]: bookApi.reducer,
+    [shoppingCartApi.reducerPath]: shoppingCartApi.reducer,
   },
   //add api to middleware, it's rhe way it should be done
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(bookApi.middleware),
+    getDefaultMiddleware()
+      .concat(bookApi.middleware)
+      .concat(shoppingCartApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

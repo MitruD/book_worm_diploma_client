@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useGetBookByIdQuery } from "../APIs/bookApi";
+import { useUpdateShoppingCartMutation } from "../APIs/shoppingCartApi";
 
 let logo = require("../Assets/Images/Frog eccentric multicolor suit.png");
 
@@ -17,6 +18,10 @@ function BookDetails() {
   const navigate = useNavigate();
   //useState(1) - default value
   const [quantity, setQuantity] = useState(1);
+  // to track whne we are adding book to the shoppingCart
+  const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false);
+  //when add to cart will be clicked updateShoppingCart will be envoked
+  const [updateShoppingCart] = useUpdateShoppingCartMutation();
 
   const handleQuantity = (counter: number) => {
     let newQuantity = quantity + counter;
@@ -25,6 +30,19 @@ function BookDetails() {
     }
     setQuantity(newQuantity);
     return;
+  };
+
+  const handleAddToCart = async (bookId: number) => {
+    setIsAddingToCart(true);
+
+    const response = await updateShoppingCart({
+      bookId: bookId,
+      updateQuantityBy: quantity,
+      userId: "beef14eb-3e11-449f-8a16-eb81b0c008a7",
+    });
+    console.log(response);
+
+    setIsAddingToCart(false);
   };
 
   return (
@@ -39,7 +57,7 @@ function BookDetails() {
               alt="No content"
             ></img>
           </div>
-          <div className="col-7">
+          <div className="col-7 pt-3">
             {/* ? - can be null or undefined. */}
             <h2 className="text-primary">{data.result?.name}</h2>
             <h3 className="text-dark">by {data.result?.author}</h3>
@@ -78,13 +96,16 @@ function BookDetails() {
               ></i>
             </span>
             <div className="row pt-4">
-              <div className="col-5">
-                <button className="btn btn-success form-control">
+              <div className="col-3">
+                <button
+                  className="btn btn-success form-control"
+                  onClick={() => handleAddToCart(data.result?.id)}
+                >
                   Add to Cart
                 </button>
               </div>
 
-              <div className="col-5 ">
+              <div className="col-3 ">
                 <NavLink className="nav-link" aria-current="page" to="/">
                   <button className="btn btn-secondary form-control">
                     Back to Home

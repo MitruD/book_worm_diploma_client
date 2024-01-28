@@ -1,2 +1,0 @@
-
-"../../../../book_worm_api/book_worm_api/wwwroot/images/"

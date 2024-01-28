@@ -41,6 +41,7 @@ function BookCard(props: Props) {
             >
               <img
                 src="https://bookstoreromanceday.org/wp-content/uploads/2020/08/book-cover-placeholder.png"
+                // src={props.book.imageURL}
                 style={{ borderRadius: "5%" }}
                 alt=""
                 className="w-100 image-box"
@@ -98,10 +99,10 @@ function BookCard(props: Props) {
 }
 
 export default BookCard;
-function updateShoppingCart(arg0: {
-  bookId: number;
-  updateQuantityBy: any;
-  userId: string;
-}) {
-  throw new Error("Function not implemented.");
-}
+// function updateShoppingCart(arg0: {
+//   bookId: number;
+//   updateQuantityBy: any;
+//   userId: string;
+// }) {
+//   throw new Error("Function not implemented.");
+// }

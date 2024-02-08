@@ -9,7 +9,7 @@ const shoppingCartApi = createApi({
   endpoints: (builder) => ({
     getShoppingCart: builder.query({
       query: (userId) => ({
-        url: `shoppingCart`,
+        url: `ShoppingCart`,
         params: {
           userId: userId,
         },
@@ -19,14 +19,14 @@ const shoppingCartApi = createApi({
     //muutations synon. for reducers
     updateShoppingCart: builder.mutation({
       //Parameters for shoppingcar api
-      query: ({ bookId, updateQuantityBy, userId }) => ({
-        url: "shoppingCart",
+      query: ({ userId, bookId, updateQuantityBy }) => ({
+        url: "ShoppingCart",
         method: "POST",
         params: {
           //same name as API param, if not then diffName: menuItemId
+          userId,
           bookId,
           updateQuantityBy,
-          userId,
         },
       }),
       invalidatesTags: ["ShoppingCarts"],

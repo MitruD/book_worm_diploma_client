@@ -3,7 +3,7 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useGetBookByIdQuery } from "../APIs/bookApi";
 import { useUpdateShoppingCartMutation } from "../APIs/shoppingCartApi";
 
-let logo = require("../Assets/Images/Frog eccentric multicolor suit.png");
+let imageFolderRootPath = "https://localhost:7193//images//";
 
 //USER ID required for shoppingCart api is taken from a JWT token
 //= beef14eb-3e11-449f-8a16-eb81b0c008a7 can be found in AspNetUsers table
@@ -51,7 +51,7 @@ function BookDetails() {
         <div className="row">
           <div className="col-5">
             <img
-              src={logo}
+              src={imageFolderRootPath + data.result?.imageURL}
               width="70%"
               style={{ borderRadius: "5%" }}
               alt="No content"

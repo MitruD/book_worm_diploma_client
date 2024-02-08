@@ -7,6 +7,8 @@ interface Props {
   book: bookModel;
 }
 
+let imageFolderRootPath = "https://localhost:7193//images//";
+
 function BookCard(props: Props) {
   const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false);
   //when add to cart will be clicked updateShoppingCart will be envoked
@@ -30,17 +32,18 @@ function BookCard(props: Props) {
       <div
         className="card shadow p-3 mb-6 bg-white rounded"
         // className="card shadow-lg p-3 mb-5 bg-white rounded"
-        style={{ height: "480px" }}
+        style={{ height: "500px" }}
       >
         <div className="card-body pt-0 h-75">
-          <div className="row col-10 offset-1 p-0">
+          <div className="row col-10 offset-1 pt-3">
             <Link
               className="nav-link"
               to={`/bookDetails/${props.book.id}`}
               style={{ textDecoration: "none" }}
             >
               <img
-                src="https://bookstoreromanceday.org/wp-content/uploads/2020/08/book-cover-placeholder.png"
+                //src="https://bookstoreromanceday.org/wp-content/uploads/2020/08/book-cover-placeholder.png"
+                src={imageFolderRootPath + props.book.imageURL}
                 // src={props.book.imageURL}
                 style={{ borderRadius: "5%" }}
                 alt=""

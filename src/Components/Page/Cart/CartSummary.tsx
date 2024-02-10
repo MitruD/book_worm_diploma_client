@@ -11,6 +11,8 @@ import { useUpdateShoppingCartMutation } from "../../../APIs/shoppingCartApi";
 function CartSummary() {
   const dispatch = useDispatch();
   const [updateShoppingCart] = useUpdateShoppingCartMutation();
+  const userData = useSelector((state: RootState) => state.userAuthStore);
+
   //Access the store. Type of the state is rootstate
   const shoppingCartFromStore: cartItemModel[] = useSelector(
     (state: RootState) => state.shoppingCartStore.cartItems ?? []
@@ -18,6 +20,8 @@ function CartSummary() {
   if (!shoppingCartFromStore) {
     return <div>Shopping Cart Empty</div>;
   }
+
+  let imageFolderRootPath = "https://localhost:7193//images//";
 
   let grandTotal = 0;
   let totalItems = 0;
@@ -39,7 +43,7 @@ function CartSummary() {
       updateShoppingCart({
         bookId: cartItem.book?.id,
         updateQuantityBy: 0,
-        userId: "beef14eb-3e11-449f-8a16-eb81b0c008a7",
+        userId: userData.id,
       });
       //remove item from store
       dispatch(removeFromCart({ cartItem, quantity: 0 }));
@@ -49,7 +53,7 @@ function CartSummary() {
         bookId: cartItem.book?.id,
         //in API the cartItem.quantity! + is not needed, it is already stored in DB
         updateQuantityBy: updateQuantityBy,
-        userId: "beef14eb-3e11-449f-8a16-eb81b0c008a7",
+        userId: userData.id,
       });
       //update the quntity with the new quantity in store
       dispatch(
@@ -73,11 +77,10 @@ function CartSummary() {
         >
           <div className="p-3">
             <img
-              src="https://bookstoreromanceday.org/wp-content/uploads/2020/08/book-cover-placeholder.png"
-              //   src={cartItem.book?.imageURL}
+              //src="https://bookstoreromanceday.org/wp-content/uploads/2020/08/book-cover-placeholder.png"
+              src={imageFolderRootPath + cartItem.book?.imageURL}
               alt=""
               width={"120px"}
-              // className="rounded-circle"
             />
           </div>
 

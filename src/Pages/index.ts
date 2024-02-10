@@ -5,8 +5,8 @@ import ShoppingCart from "./ShoppingCart";
 import Register from "./Register";
 import Login from "./Login";
 import AccessDenied from "./AccessDenied";
-import AuthenticationTest from "./AuthenticationTest";
-import AuthenticationTestAdmin from "./AuthenticationTestAdmin";
+import BookList from "./Book/BookList";
+import BookUpsert from "./Book/BookUpsert";
 
 export {
   Home,
@@ -16,6 +16,6 @@ export {
   Login,
   Register,
   AccessDenied,
-  AuthenticationTest,
-  AuthenticationTestAdmin,
+  BookList,
+  BookUpsert,
 };

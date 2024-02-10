@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useGetBookByIdQuery } from "../APIs/bookApi";
 import { useUpdateShoppingCartMutation } from "../APIs/shoppingCartApi";
+import { useSelector } from "react-redux";
+import { RootState } from "../Storage/Redux/store";
+import { apiResponse } from "../Interfaces";
+import { toastNotify } from "../Helper";
 
 let imageFolderRootPath = "https://localhost:7193//images//";
 
@@ -22,6 +26,7 @@ function BookDetails() {
   const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false);
   //when add to cart will be clicked updateShoppingCart will be envoked
   const [updateShoppingCart] = useUpdateShoppingCartMutation();
+  const userData = useSelector((state: RootState) => state.userAuthStore);
 
   const handleQuantity = (counter: number) => {
     let newQuantity = quantity + counter;
@@ -33,14 +38,22 @@ function BookDetails() {
   };
 
   const handleAddToCart = async (bookId: number) => {
+    if (!userData.id) {
+      navigate("/login");
+      return;
+    }
     setIsAddingToCart(true);
 
-    const response = await updateShoppingCart({
+    const response: apiResponse = await updateShoppingCart({
       bookId: bookId,
       updateQuantityBy: quantity,
-      userId: "beef14eb-3e11-449f-8a16-eb81b0c008a7",
+      userId: userData.id,
     });
-    console.log(response);
+
+    if (response.data && response.data.isSuccess) {
+      toastNotify("Itme added to cart successfully!");
+    }
+    //console.log(response);
 
     setIsAddingToCart(false);
   };

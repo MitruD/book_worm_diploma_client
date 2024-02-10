@@ -67,20 +67,12 @@ function Header() {
                 <NavLink
                   className="nav-link"
                   aria-current="page"
-                  to="/authenticationTest"
+                  to="/book/bookList"
                 >
-                  Authentication
+                  Book List
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink
-                  className="nav-link"
-                  aria-current="page"
-                  to="/authenticationTestAdmin"
-                >
-                  Authorization
-                </NavLink>
-              </li>
+              <li className="nav-item"></li>
               <li className="nav-item">
                 <NavLink
                   className="nav-link"
@@ -88,9 +80,7 @@ function Header() {
                   to="/shoppingCart"
                 >
                   <i className="bi bi-cart4"></i> {/* if length has value */}
-                  {shoppingCartFromStore?.length
-                    ? `(${shoppingCartFromStore.length})`
-                    : ""}
+                  {userData.id && `(${shoppingCartFromStore?.length})`}
                 </NavLink>
               </li>
               <li className="nav-item dropdown">

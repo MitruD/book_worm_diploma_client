@@ -23,7 +23,7 @@ const shoppingCartApi = createApi({
         url: "ShoppingCart",
         method: "POST",
         params: {
-          //same name as API param, if not then diffName: menuItemId
+          //same name as API param, if not then diffName: bookId
           userId,
           bookId,
           updateQuantityBy,

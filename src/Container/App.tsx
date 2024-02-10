@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Footer, Header } from "../Components/Layout";
 import {
   AccessDenied,
-  AuthenticationTest,
-  AuthenticationTestAdmin,
   BookDetails,
+  BookList,
+  BookUpsert,
   Home,
   Login,
   NotFound,
@@ -12,20 +12,20 @@ import {
   ShoppingCart,
 } from "../Pages";
 import { Route, Routes } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useGetShoppingCartQuery } from "../APIs/shoppingCartApi";
 import { setShoppingCart } from "../Storage/Redux/shoppingCartSlice";
 import jwtDecode from "jwt-decode";
 import { userModel } from "../Interfaces";
 import { setLoggedInUser } from "../Storage/Redux/userAuthSlice";
+import { RootState } from "../Storage/Redux/store";
 
 function App() {
   const dispatch = useDispatch();
+  const userData = useSelector((state: RootState) => state.userAuthStore);
 
   // we need to load the shopping cart when app is laoded
-  const { data, isLoading } = useGetShoppingCartQuery(
-    "beef14eb-3e11-449f-8a16-eb81b0c008a7"
-  );
+  const { data, isLoading } = useGetShoppingCartQuery(userData.id);
 
   useEffect(() => {
     const localToken = localStorage.getItem("token");
@@ -37,7 +37,7 @@ function App() {
 
   useEffect(() => {
     if (!isLoading) {
-      console.log(data.result);
+      //console.log(data.result);
       dispatch(setShoppingCart(data.result?.cartItems));
     }
   }, [data]);
@@ -52,14 +52,10 @@ function App() {
           <Route path="/shoppingCart" element={<ShoppingCart />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/login" element={<Login />}></Route>
-          <Route
-            path="/authenticationTest"
-            element={<AuthenticationTest />}
-          ></Route>
-          <Route
-            path="/authenticationTestAdmin"
-            element={<AuthenticationTestAdmin />}
-          ></Route>
+          <Route path="/book/bookList" element={<BookList />}></Route>
+          <Route path="/book/bookUpsert" element={<BookUpsert />}></Route>
+          <Route path="/book/bookUpsert/:id" element={<BookUpsert />}></Route>
+
           <Route path="/accessDenied" element={<AccessDenied />}></Route>
 
           {/* "*" means not found */}

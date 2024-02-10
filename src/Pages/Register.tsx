@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { SD_Roles } from "../Utility/SD";
-import { inputHelper } from "../Helper";
+import { inputHelper, toastNotify } from "../Helper";
 import { useRegisterUserMutation } from "../APIs/authApi";
 import { apiResponse } from "../Interfaces";
 import { useNavigate } from "react-router-dom";
+import { MainLoader } from "../Components/Page/Common";
 
 //need a local state to preserve value
 
@@ -25,7 +26,7 @@ function Register() {
     setUserInput(tempData);
   };
 
-  const handSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     //to not submit the Form
     e.preventDefault();
     setLoading(true);
@@ -35,18 +36,20 @@ function Register() {
       role: userInput.role,
       name: userInput.name,
     });
+    //console.log(response.data);
     if (response.data) {
-      console.log(response.data);
+      toastNotify("Registration successful! Please login to continue.");
       navigate("/login");
     } else if (response.error) {
-      console.log(response.data);
+      toastNotify(response.error.data.errorMessages[0], "error");
     }
     setLoading(false);
   };
 
   return (
     <div className="container text-center">
-      <form method="post" onSubmit={handSubmit}>
+      {loading && <MainLoader />}
+      <form method="post" onSubmit={handleSubmit}>
         <h1 className="mt-5">Register</h1>
         <div className="mt-5 ">
           <div className="col-sm-6 offset-sm-3 col-xs-12 mt-4">
@@ -86,8 +89,8 @@ function Register() {
             <select
               className="form-control form-select"
               required
-              name="role"
               value={userInput.role}
+              name="role"
               onChange={handleUserInput}
             >
               <option value="">--Select Role--</option>
@@ -97,7 +100,7 @@ function Register() {
           </div>
         </div>
         <div className="mt-5">
-          <button type="submit" className="btn btn-success">
+          <button type="submit" className="btn btn-success" disabled={loading}>
             Register
           </button>
         </div>

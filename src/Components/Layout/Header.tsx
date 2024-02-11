@@ -7,6 +7,7 @@ import {
   setLoggedInUser,
   emptyUserState,
 } from "../../Storage/Redux/userAuthSlice";
+import { SD_Roles } from "../../Utility/SD";
 
 let logo = require("../../Assets/Images/logo.jpeg");
 
@@ -63,15 +64,20 @@ function Header() {
                   Home
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink
-                  className="nav-link"
-                  aria-current="page"
-                  to="/book/bookList"
-                >
-                  Book List
-                </NavLink>
-              </li>
+              {userData.role == SD_Roles.ADMIN ? (
+                <li className="nav-item">
+                  <NavLink
+                    className="nav-link"
+                    aria-current="page"
+                    to="/book/bookList"
+                  >
+                    Book List
+                  </NavLink>
+                </li>
+              ) : (
+                <></>
+              )}
+
               <li className="nav-item"></li>
               <li className="nav-item">
                 <NavLink
@@ -83,73 +89,48 @@ function Header() {
                   {userData.id && `(${shoppingCartFromStore?.length})`}
                 </NavLink>
               </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Admin Panel
-                </a>
-                <ul className="dropdown-menu">
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Another action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Something else here
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <div className="d-flex" style={{ marginLeft: "auto" }}>
-                {/* {userData.id && ( */}
-                <li className="nav-item">
-                  <button
-                    className="btn btn-dark btn-outlined rounded-3 text-ligth mx-2"
-                    style={{
-                      border: "none",
-                      height: "40px",
-                      width: "100px",
-                    }}
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </button>
-                </li>
-                {/* )} */}
 
-                {/* {userData.id && (
-                  <> */}
-                <li className="nav-item text-white">
-                  <NavLink className="nav-link" to="/register">
-                    Register
-                  </NavLink>
-                </li>
-                <li className="nav-item text-white">
-                  <NavLink
-                    className="btn btn-dark btn-outlined rounded-3 text-light mx-2"
-                    style={{
-                      border: "none",
-                      height: "40px",
-                      width: "100px",
-                    }}
-                    to="/login"
-                  >
-                    Login
-                  </NavLink>
-                </li>
-                {/* </>
-                )} */}
+              <div className="d-flex" style={{ marginLeft: "auto" }}>
+                {userData.id && (
+                  <>
+                    <li className="nav-item">
+                      <button
+                        className="btn btn-dark btn-outlined rounded-3 text-ligth mx-2"
+                        style={{
+                          border: "none",
+                          height: "40px",
+                          width: "100px",
+                        }}
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </>
+                )}
+
+                {!userData.id && (
+                  <>
+                    <li className="nav-item text-white">
+                      <NavLink className="nav-link" to="/register">
+                        Register
+                      </NavLink>
+                    </li>
+                    <li className="nav-item text-white">
+                      <NavLink
+                        className="btn btn-dark btn-outlined rounded-3 text-light mx-2"
+                        style={{
+                          border: "none",
+                          height: "40px",
+                          width: "100px",
+                        }}
+                        to="/login"
+                      >
+                        Login
+                      </NavLink>
+                    </li>
+                  </>
+                )}
               </div>
             </ul>
           </div>

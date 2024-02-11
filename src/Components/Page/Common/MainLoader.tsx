@@ -15,7 +15,7 @@ function MainLoader() {
       }}
     >
       <div
-        className="spinner-border text-warning"
+        className="spinner-border text-info"
         style={{ width: "4rem", height: "4rem" }}
       ></div>
     </div>

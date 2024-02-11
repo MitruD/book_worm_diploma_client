@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 //initiale state
 const initialState = {
   book: [],
+  search: "",
 };
 
 export const bookSlice = createSlice({
@@ -12,8 +13,11 @@ export const bookSlice = createSlice({
     setBook: (state, action) => {
       state.book = action.payload;
     },
+    setSearchBook: (state, action) => {
+      state.search = action.payload;
+    },
   },
 });
 
-export const { setBook } = bookSlice.actions;
+export const { setBook, setSearchBook } = bookSlice.actions;
 export const bookReducer = bookSlice.reducer;
